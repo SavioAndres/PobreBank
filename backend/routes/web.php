@@ -21,3 +21,15 @@ $router->group(['prefix' => 'api/'], function ($router) {
     $router->post('login/', 'UsersController@authenticate');
     $router->post('create/', 'UsersController@create');
 });
+
+$router->group(['middleware' => 'auth', 'prefix' => 'api/'], function () use ($router) {
+        
+        $router->get('post', function ()    {
+            return 'User ';
+        });
+    
+        $router->get('user/profile', function () {
+            // Uses Auth Middleware
+        });
+
+});
