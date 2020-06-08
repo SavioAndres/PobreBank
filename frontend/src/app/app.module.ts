@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthGuard } from './services/guards/auth.guard';
-import { AuthService } from './services/auth/auth.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [

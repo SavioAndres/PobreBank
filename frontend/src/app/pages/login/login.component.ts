@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { Usuario } from 'src/app/models/usuario';
-import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  usuario: Usuario = new Usuario();
+  usuario = {} as Usuario;
 
   constructor(private authServices: AuthService) { }
 
@@ -19,5 +19,17 @@ export class LoginComponent implements OnInit {
   fazerLogin() {
     this.authServices.fazerLogin(this.usuario);
   }
+
+  /*saveCar(form: NgForm) {
+    if (this.bpressure.bPressureId !== undefined ) {
+      this.bpressureService.updateCar(this.bpressure).subscribe(() => {
+        this.cleanForm(form);
+      });
+    } else {
+      this.bpressureService.saveCar(this.bpressure).subscribe(() => {
+        this.cleanForm(form);
+      });
+    }
+  }*/
 
 }
