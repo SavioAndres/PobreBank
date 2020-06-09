@@ -1,0 +1,23 @@
+<div class="container-super container">
+  <div class="pad-container">
+    <form (ngSubmit)="transferir(f)" #f="ngForm">
+      <div class="row" style="margin-top: 40px;">
+        <div class="input-field col s7">
+          <input id="cpf" [(ngModel)]="transacao.cpf" name="cpf" type="number"
+            class="validate" required />
+          <label for="cpf">CPF do destinatário</label>
+        </div>
+        <div class="input-field col s5">
+          <input id="valor" [(ngModel)]="transacao.valor" name="valor" type="number" step="0.01" min="0"
+            class="validate" required />
+          <label for="valor">Valor da transferência</label>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 30px;">
+        <div class="col s12">
+          <button type="submit" class="btn" style="width: 100%;">Depositar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

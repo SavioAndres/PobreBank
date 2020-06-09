@@ -1,0 +1,24 @@
+<ul id="dropdown1" class="dropdown-content dropdown-navbar" *ngIf="mostrarMenu">
+  <li><a routerLink="/">Dashboard</a></li>
+  <li><a href="#!">Sua conta</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">Sair</a></li>
+</ul>
+<nav *ngIf="mostrarMenu" class="purple darken-1">
+  <div class="container">
+    <div class="nav-wrapper">
+      <a routerLink="/" class="brand-logo">PobreBank</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a routerLink="/depositar">Depositar</a></li>
+        <li><a routerLink="/transferir">Transferir</a></li>
+        <li><a routerLink="/sacar">Sacar</a></li>
+        <!-- Dropdown Trigger -->
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">
+            <i class="material-icons right">arrow_drop_down</i>
+          </a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+

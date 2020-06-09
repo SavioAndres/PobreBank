@@ -11,13 +11,21 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthGuard } from './services/guards/auth.guard';
 import { AuthService } from './services/auth.service';
+import { MenuComponent } from './components/menu/menu.component';
+import { DepositarComponent } from './pages/depositar/depositar.component';
+import { SacarComponent } from './pages/sacar/sacar.component';
+import { TransferirComponent } from './pages/transferir/transferir.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MenuComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    DepositarComponent,
+    SacarComponent,
+    TransferirComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './services/guards/auth.guard';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
+import { DepositarComponent } from './pages/depositar/depositar.component';
+import { SacarComponent } from './pages/sacar/sacar.component';
+import { TransferirComponent } from './pages/transferir/transferir.component';
 
 const routes: Routes = [
   { 
@@ -13,9 +16,23 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }
-
+  { 
+    path: 'depositar',
+    component: DepositarComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'sacar',
+    component: SacarComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'transferir',
+    component: TransferirComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'registrar', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 

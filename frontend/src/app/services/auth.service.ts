@@ -6,6 +6,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http
 import { retry, catchError } from 'rxjs/operators';
 import { JsonPipe } from '@angular/common';
 import { AuthResponse } from '../models/authResponse';
+import { MenuComponent } from '../components/menu/menu.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,7 @@ import { AuthResponse } from '../models/authResponse';
 export class AuthService {
 
   private usuarioAutenticado: boolean = false;
-  mostarMenuEmitter = new EventEmitter<boolean>();
-  private url: string; 
-  private returnLogin: any;
+  private url: string;
 
   constructor(private router: Router, private httpClient: HttpClient) { 
     this.url = 'http://localhost:8000/api';
@@ -39,15 +38,13 @@ export class AuthService {
     if (authResponse.status) {
       localStorage.setItem('auth', JSON.stringify(
         { status: authResponse.status, 
-          token: authResponse.api_key,
-          cpf: authResponse.cpf
+          token: authResponse.api_key
         }));
       this.usuarioAutenticado = true;
-      this.mostarMenuEmitter.emit(true);
-      this.router.navigate(['/']);
+      //this.router.navigate(['/']);
+      window.location.replace('/');
     } else {
       this.usuarioAutenticado = false;
-      this.mostarMenuEmitter.emit(false);
 
     }
   }
@@ -55,7 +52,6 @@ export class AuthService {
   autenticado(auth: AuthResponse) {
     if (auth.status) {
       this.usuarioAutenticado = true;
-      this.mostarMenuEmitter.emit(true);
     }
   }
 
@@ -63,7 +59,12 @@ export class AuthService {
     localStorage.removeItem('auth');
   }
 
-  usuarioEstaAutenticado() {
+  getAuth() : AuthResponse {
+    let authResponse : AuthResponse = JSON.parse(localStorage.getItem('auth'));
+    return authResponse;
+  }
+
+  usuarioEstaAutenticado() : boolean {
     return this.usuarioAutenticado;
   }
 
@@ -76,7 +77,6 @@ export class AuthService {
       // Erro ocorreu no lado do servidor
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
     }
-    console.log(errorMessage);
     return throwError(errorMessage);
   };
 

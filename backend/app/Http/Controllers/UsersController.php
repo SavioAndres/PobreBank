@@ -10,9 +10,6 @@ use Illuminate\Support\Str;
 class UsersController extends Controller
 
 {
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -61,48 +58,54 @@ class UsersController extends Controller
 
     }
 
-    public function show($cpf)
+    public function show(Request $request)
     {
-        $user = User::where('cpf', $cpf)->first();
+        $user = User::where('id', $request->userid)->first();
         return $user;
     }
 
-    public function saque(Request $request, $cpf)
+    public function saque(Request $request)
     {
         $this->validate($request, [
             'valor' => 'required'
         ]);
-        $user = User::where('cpf', $cpf)->first();
+
+        $user = User::where('id', $request->userid)->first();
         if ($request->valor > $user->balance) {
             $balance = $user->balance;
             $message = 'O valor de saque R$'. $request->valor . ' é maior que o saldo em conta.';
             return response()->json(['balance' => $balance, 'message' => $message, 'status' => false]);
         } else {
             $balance = $user->balance - $request->valor;
-            User::where('cpf', $cpf)->update(['balance' => $balance]);
+            User::where('cpf', $user->cpf)->update(['balance' => $balance]);
             $message = 'Saque de R$'. $request->valor . ' realizado com sucesso.';
             return response()->json(['balance' => $balance, 'message' => $message, 'status' => true]);
         }
     }
 
-    public function deposito(Request $request, $cpf)
+    public function deposito(Request $request)
     {
         $this->validate($request, [
             'valor' => 'required'
         ]);
-        $user = User::where('cpf', $cpf)->first();
+
+        $user = User::where('id', $request->userid)->first();
 
         $balance = $user->balance + $request->valor;
-        User::where('cpf', $cpf)->update(['balance' => $balance]);
+        User::where('cpf', $user->cpf)->update(['balance' => $balance]);
         $message = 'Depósito de R$'. $request->valor . ' realizado com sucesso.';
         
         return response()->json(['balance' => $balance, 'message' => $message]);
     }
 
-    public function transferencia(Request $request, $cpf)
+    public function transferencia(Request $request)
     {
+        $this->validate($request, [
+            'cpf' => 'required',
+            'valor' => 'required'
+        ]);
         $cpf_destinatario = $request->cpf;
-        $user = User::where('cpf', $cpf)->first();
+        $user = User::where('id', $request->userid)->first();
         $user_destinatario = User::where('cpf', $cpf_destinatario)->first();
         
         if ($request->valor > $user->balance) {
@@ -110,12 +113,11 @@ class UsersController extends Controller
             return response()->json(['balance' => $user->balance, 'message' => $message, 'status' => false]);
         } else {
             $balance = $user->balance - $request->valor;
-            User::where('cpf', $cpf)->update(['balance' => $balance]);
-            User::where('cpf', $user_destinatario)->update(['balance' => $user_destinatario->balance + $request->valor]);
+            User::where('id', $request->userid)->update(['balance' => $balance]);
+            User::where('id', $user_destinatario->id)->update(['balance' => $user_destinatario->balance + $request->valor]);
             $message = 'Tranferência de R$'. $request->valor . ' realizado com sucesso.';
             return response()->json(['balance' => $balance, 'message' => $message, 'status' => true]);
         }
-
     }
 
 }

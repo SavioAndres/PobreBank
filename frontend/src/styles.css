@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+.container-super {
+    background-color: #ffffff;
+    margin-top: 20px;
+    border: 1px solid #e1bee7;
+    border-radius: 4px;
+}
+
+.pad-container {
+    padding: 20px;
+}

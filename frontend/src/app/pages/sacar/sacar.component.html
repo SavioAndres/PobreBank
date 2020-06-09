@@ -1,0 +1,17 @@
+<div class="container-super container">
+    <div class="pad-container">
+      <form (ngSubmit)="sacar(f)" #f="ngForm">
+        <div class="row" style="margin-top: 40px;">
+          <div class="input-field col s12">
+            <input id="valor" [(ngModel)]="transacao.valor" name="valor" type="number" step="0.01" min="0" class="validate" required />
+            <label for="valor">Valor do saque</label>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 30px;">
+          <div class="col s12">
+            <button type="submit" class="btn" style="width: 100%;">Sacar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
