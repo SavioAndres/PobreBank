@@ -25,15 +25,19 @@ class UsersController extends Controller
             'cpf' => 'required',
             'password' => 'required'
         ]);
+        
+        try {
+            $user = User::where('cpf', $request->input('cpf'))->first();
 
-        $user = User::where('cpf', $request->input('cpf'))->first();
-
-        if(Hash::check($request->input('password'), $user->password)){
-            $apikey = base64_encode(Str::random(40));
-            User::where('cpf', $request->input('cpf'))->update(['api_key' => "$apikey"]);;
-            return response()->json(['status' => 'success','api_key' => $apikey]);
-        }else{
-            return response()->json(['status' => 'fail'],401);
+            if(Hash::check($request->input('password'), $user->password)){
+                $apikey = base64_encode(Str::random(40));
+                User::where('cpf', $request->input('cpf'))->update(['api_key' => "$apikey"]);
+                return response()->json(['status' => true,'api_key' => $apikey, 'cpf' => $request->input('cpf')]);
+            }else{
+                return response()->json(['status' => false]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false]);
         }
     }
 
@@ -51,8 +55,66 @@ class UsersController extends Controller
         $user->cpf = $request->input('cpf');
         $user->password = Hash::make($request->input('password'));
         $user->api_key = base64_encode(Str::random(40));
+        $user->balance = 0;
 
         $user->save();
+
+    }
+
+    public function show($cpf)
+    {
+        $user = User::where('cpf', $cpf)->first();
+        return $user;
+    }
+
+    public function saque(Request $request, $cpf)
+    {
+        $this->validate($request, [
+            'valor' => 'required'
+        ]);
+        $user = User::where('cpf', $cpf)->first();
+        if ($request->valor > $user->balance) {
+            $balance = $user->balance;
+            $message = 'O valor de saque R$'. $request->valor . ' é maior que o saldo em conta.';
+            return response()->json(['balance' => $balance, 'message' => $message, 'status' => false]);
+        } else {
+            $balance = $user->balance - $request->valor;
+            User::where('cpf', $cpf)->update(['balance' => $balance]);
+            $message = 'Saque de R$'. $request->valor . ' realizado com sucesso.';
+            return response()->json(['balance' => $balance, 'message' => $message, 'status' => true]);
+        }
+    }
+
+    public function deposito(Request $request, $cpf)
+    {
+        $this->validate($request, [
+            'valor' => 'required'
+        ]);
+        $user = User::where('cpf', $cpf)->first();
+
+        $balance = $user->balance + $request->valor;
+        User::where('cpf', $cpf)->update(['balance' => $balance]);
+        $message = 'Depósito de R$'. $request->valor . ' realizado com sucesso.';
+        
+        return response()->json(['balance' => $balance, 'message' => $message]);
+    }
+
+    public function transferencia(Request $request, $cpf)
+    {
+        $cpf_destinatario = $request->cpf;
+        $user = User::where('cpf', $cpf)->first();
+        $user_destinatario = User::where('cpf', $cpf_destinatario)->first();
+        
+        if ($request->valor > $user->balance) {
+            $message = 'O valor da transferência R$'. $request->valor . ' é maior que o saldo em conta.';
+            return response()->json(['balance' => $user->balance, 'message' => $message, 'status' => false]);
+        } else {
+            $balance = $user->balance - $request->valor;
+            User::where('cpf', $cpf)->update(['balance' => $balance]);
+            User::where('cpf', $user_destinatario)->update(['balance' => $user_destinatario->balance + $request->valor]);
+            $message = 'Tranferência de R$'. $request->valor . ' realizado com sucesso.';
+            return response()->json(['balance' => $balance, 'message' => $message, 'status' => true]);
+        }
 
     }
 

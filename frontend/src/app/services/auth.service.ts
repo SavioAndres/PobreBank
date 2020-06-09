@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
 import { JsonPipe } from '@angular/common';
+import { AuthResponse } from '../models/authResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -24,31 +25,59 @@ export class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  fazerLogin(usuario: Usuario) {
-    console.log(usuario);
-    console.log('--------------');
-    this.returnLogin = this.httpClient.post<any>(this.url + '/login', usuario).subscribe();
+  login(usuario: Usuario) : Observable<AuthResponse> {
+    return this.httpClient.post<AuthResponse>(this.url + '/login', usuario, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
 
-    console.log(this.returnLogin);
-    console.log('--------------');
-    /*if (this.returnLogin.status === 'success') {
+  autenticar(authResponse: AuthResponse) {
+    console.log(authResponse);
+
+    if (authResponse.status) {
+      localStorage.setItem('auth', JSON.stringify(
+        { status: authResponse.status, 
+          token: authResponse.api_key,
+          cpf: authResponse.cpf
+        }));
       this.usuarioAutenticado = true;
-      
       this.mostarMenuEmitter.emit(true);
-
       this.router.navigate(['/']);
-
     } else {
-
       this.usuarioAutenticado = false;
-
       this.mostarMenuEmitter.emit(false);
 
-    }*/
+    }
+  }
+
+  autenticado(auth: AuthResponse) {
+    if (auth.status) {
+      this.usuarioAutenticado = true;
+      this.mostarMenuEmitter.emit(true);
+    }
+  }
+
+  removeAuth() {
+    localStorage.removeItem('auth');
   }
 
   usuarioEstaAutenticado() {
     return this.usuarioAutenticado;
   }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Erro ocorreu no lado do client
+      errorMessage = error.error.message;
+    } else {
+      // Erro ocorreu no lado do servidor
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  };
 
 }

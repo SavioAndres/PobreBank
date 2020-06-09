@@ -17,19 +17,9 @@ export class LoginComponent implements OnInit {
   }
 
   fazerLogin() {
-    this.authServices.fazerLogin(this.usuario);
+    this.authServices.login(this.usuario).subscribe(results => {
+      this.authServices.autenticar(results);
+    });
   }
-
-  /*saveCar(form: NgForm) {
-    if (this.bpressure.bPressureId !== undefined ) {
-      this.bpressureService.updateCar(this.bpressure).subscribe(() => {
-        this.cleanForm(form);
-      });
-    } else {
-      this.bpressureService.saveCar(this.bpressure).subscribe(() => {
-        this.cleanForm(form);
-      });
-    }
-  }*/
 
 }

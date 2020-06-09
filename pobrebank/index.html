@@ -1,0 +1,50 @@
+<!doctype html>
+<html ng-app="app">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="pt-br" />
+    <title>PobreBank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.min.js"></script>
+</head>
+
+<body>
+    <!--<ul class="nav nav-tabs">
+        <li ng-class="{active: activetab == '/'}"><a href="/dashboard">Home</a></li>
+        <li ng-class="{active: activetab == '/sobre'}"><a href="/sobre">Sobre</a></li>
+        <li ng-class="{active: activetab == '/login'}"><a href="/login">Contato</a></li>
+    </ul>-->
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">Sair</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">three</a></li>
+    </ul>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo">Scholiki Virtual</a>
+            <ul class="right hide-on-med-and-down">
+                <li ng-class="{active: activetab == '/dashboard'}"><a href="/dashboard">Dashboard</a></li>
+                <li><a href="badges.html">Components</a></li>
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i
+                            class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div ng-view></div>
+
+    <script src="app/auth.js"></script>
+    <script src="app/route.js"></script>
+    <script src="app/controllers/DashboardController.js"></script>
+    <script src="app/controllers/LoginController.js"></script>
+    <script src="app/controllers/SalaController.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

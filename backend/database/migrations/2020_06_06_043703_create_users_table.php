@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->integer('cpf')->length(11)->unique();
             $table->string('name', 120);
             $table->string('password');
+            $table->float('balance');
             $table->text('api_key');
             $table->rememberToken();
             $table->timestamps();
