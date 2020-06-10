@@ -16,4 +16,9 @@ export class MenuComponent implements OnInit {
     this.mostrarMenu = this.authService.usuarioEstaAutenticado();
   }
 
+  sair() {
+    localStorage.removeItem('auth');
+    window.location.replace('/login');
+  }
+
 }

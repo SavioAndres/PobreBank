@@ -23,6 +23,7 @@ $router->group(['prefix' => 'api/'], function ($router) {
 });
 
 $router->group(['middleware' => 'auth', 'prefix' => 'api/'], function () use ($router) {
+    $router->get('usuario', 'UsersController@usuario');
     $router->get('saldo', 'UsersController@show');
     $router->put('saque', 'UsersController@saque');
     $router->put('deposito', 'UsersController@deposito');

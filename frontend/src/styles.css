@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f3e5f5;
+}
+
 .container-super {
     background-color: #ffffff;
     margin-top: 20px;
@@ -8,4 +12,19 @@
 
 .pad-container {
     padding: 20px;
+}
+
+.container-super-min {
+    margin-top: 20px;
+}
+
+.pad-container-min {
+    max-width: 184px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e1bee7;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

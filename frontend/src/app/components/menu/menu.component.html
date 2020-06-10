@@ -1,8 +1,7 @@
 <ul id="dropdown1" class="dropdown-content dropdown-navbar" *ngIf="mostrarMenu">
-  <li><a routerLink="/">Dashboard</a></li>
-  <li><a href="#!">Sua conta</a></li>
+  <li><a routerLink="/">Sua conta</a></li>
   <li class="divider"></li>
-  <li><a href="#!">Sair</a></li>
+  <li><a (click)="sair()">Sair</a></li>
 </ul>
 <nav *ngIf="mostrarMenu" class="purple darken-1">
   <div class="container">

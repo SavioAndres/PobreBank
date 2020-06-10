@@ -11,10 +11,19 @@ import { NgForm } from '@angular/forms';
 export class SacarComponent implements OnInit {
 
   transacao = {} as Transacao;
+  saldo: number;
 
-  constructor(private transacaoService: TransacaoService) { }
+  constructor(private transacaoService: TransacaoService) {
+    this.getSaldo();
+  }
 
   ngOnInit(): void {
+  }
+
+  getSaldo() {
+    this.transacaoService.saldo().subscribe((transacao: Transacao) => {
+      this.saldo = transacao.balance;
+    });
   }
 
   sacar(form: NgForm) {

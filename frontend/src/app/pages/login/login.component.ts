@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   fazerLogin() {
     this.authServices.login(this.usuario).subscribe(results => {
       this.authServices.autenticar(results);
+    },
+    err => {
+      console.log(err);
     });
   }
 

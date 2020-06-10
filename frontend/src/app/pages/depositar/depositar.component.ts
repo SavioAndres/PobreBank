@@ -11,14 +11,24 @@ import { TransacaoService } from 'src/app/services/transacao.service';
 export class DepositarComponent implements OnInit {
 
   transacao = {} as Transacao;
+  saldo: number;
 
-  constructor(private transacaoService: TransacaoService) { }
+  constructor(private transacaoService: TransacaoService) {
+    this.getSaldo();
+  }
 
   ngOnInit(): void {
   }
 
+  getSaldo() {
+    this.transacaoService.saldo().subscribe((transacao: Transacao) => {
+      this.saldo = transacao.balance;
+    });
+  }
+
   depositar(form: NgForm) {
     this.transacaoService.depositar(this.transacao).subscribe(() => {
+      this.getSaldo();
       this.cleanForm(form);
     });
   }

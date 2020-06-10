@@ -1,1 +1,28 @@
-<p>register works!</p>
+<div class="body">
+  <div class="content">
+    <div class="row">
+      <div class="input-field col s12">
+        <input [(ngModel)]="usuario.name" id="last_name" type="text" class="validate" />
+        <label for="last_name">Nome completo</label>
+      </div>
+      <div class="input-field col s12">
+        <input [(ngModel)]="usuario.cpf" id="last_cpf" type="text" class="validate" />
+        <label for="last_cpf">CPF</label>
+      </div>
+      <div class="input-field col s12">
+        <input [(ngModel)]="usuario.password" id="password" type="password" class="validate" />
+        <label for="password">Senha</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s5">
+        <a class="btn teal lighten-2" routerLink="/login">Tenho conta</a>
+      </div>
+      <div class="col s7">
+        <button class="btn waves-effect waves-light" type="submit" (click)="criarConta()" name="action">Criar conta
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

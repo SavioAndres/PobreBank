@@ -1,0 +1,21 @@
+.body {
+    position: absolute;
+    background-color:#8e24aa !important;
+    width: 100vw;
+    height: 100vh;
+}
+
+.content {
+    width: 460px;
+    margin: auto;
+    padding: 40px;
+    border: 1px solid #6a1b9a;
+    margin-top: 60px;
+    background-color: #f3e5f5;
+    box-shadow: 0px 0px 20px #6a1b9a;
+    border-radius: 4px;
+}
+
+.btn {
+    width: 100%;
+}

@@ -61,7 +61,13 @@ class UsersController extends Controller
     public function show(Request $request)
     {
         $user = User::where('id', $request->userid)->first();
-        return $user;
+        return response()->json(['balance' => $user->balance]);
+    }
+
+    public function usuario(Request $request)
+    {
+        $user = User::where('id', $request->userid)->first();
+        return response()->json(['cpf' => $user->cpf, 'name' => $user->name, 'balance' => $user->balance]);
     }
 
     public function saque(Request $request)

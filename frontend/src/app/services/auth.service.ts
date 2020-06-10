@@ -33,9 +33,7 @@ export class AuthService {
   }
 
   autenticar(authResponse: AuthResponse) {
-    console.log(authResponse);
-
-    if (authResponse.status) {
+     if (authResponse.status) {
       localStorage.setItem('auth', JSON.stringify(
         { status: authResponse.status, 
           token: authResponse.api_key

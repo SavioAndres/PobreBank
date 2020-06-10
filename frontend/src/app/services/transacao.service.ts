@@ -3,6 +3,7 @@ import { Transacao } from '../models/transacao';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,20 @@ export class TransacaoService {
         'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('auth')).token
       }
     )
+  }
+
+  getUsuario(): Observable<Usuario> {
+    return this.httpClient.get<Usuario>(this.url + '/usuario', this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+
+  saldo(): Observable<Transacao> {
+    return this.httpClient.get<Transacao>(this.url + '/saldo', this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError))
   }
 
   depositar(transacao: Transacao): Observable<Transacao> {

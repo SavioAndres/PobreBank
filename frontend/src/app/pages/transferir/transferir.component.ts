@@ -11,10 +11,19 @@ import { Transacao } from 'src/app/models/transacao';
 export class TransferirComponent implements OnInit {
 
   transacao = {} as Transacao;
+  saldo: number;
 
-  constructor(private transacaoService: TransacaoService) { }
+  constructor(private transacaoService: TransacaoService) {
+    this.getSaldo();
+  }
 
   ngOnInit(): void {
+  }
+
+  getSaldo() {
+    this.transacaoService.saldo().subscribe((transacao: Transacao) => {
+      this.saldo = transacao.balance;
+    });
   }
 
   transferir(form: NgForm) {
