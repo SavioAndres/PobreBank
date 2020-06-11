@@ -9,7 +9,7 @@ import { TransacaoService } from 'src/app/services/transacao.service';
 })
 export class DashboardComponent implements OnInit {
 
-  usuario: Usuario;
+  usuario = {} as Usuario;
 
   constructor(private transacaoService: TransacaoService) {
     this.getUsuario();

@@ -1,20 +1,20 @@
 <div class="container-super container">
-    <div class="pad-container">
-        <div class="row">
-            <div class="col s12">
-                <label>Nome:</label>
-                <h4>{{ usuario.name }}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s4">
-                <label>CPF:</label>
-                <h4>{{ usuario.cpf }}</h4>
-            </div>
-            <div class="col s8">
-                <label>Saldo em conta:</label>
-                <h4>{{ usuario.balance }}</h4>
-            </div>
-        </div>        
+  <div class="pad-container">
+    <div class="row">
+      <div class="col s12">
+        <label>Nome:</label>
+        <h4>{{ usuario.name }}</h4>
+      </div>
     </div>
+    <div class="row">
+      <div class="col s4">
+        <label>CPF:</label>
+        <h4>{{ usuario.cpf }}</h4>
+      </div>
+      <div class="col s8">
+        <label>Saldo em conta:</label>
+        <h4>R${{ usuario.balance }}</h4>
+      </div>
+    </div>
+  </div>
 </div>

@@ -2,11 +2,11 @@
   <div class="content">
     <div class="row">
       <div class="input-field col s12">
-        <input [(ngModel)]="usuario.cpf" id="last_cpf" type="text" class="validate" />
+        <input [(ngModel)]="usuario.cpf" id="last_cpf" type="text" class="validate" required/>
         <label for="last_cpf">CPF</label>
       </div>
       <div class="input-field col s12">
-        <input [(ngModel)]="usuario.password" id="password" type="password" class="validate" />
+        <input [(ngModel)]="usuario.password" id="password" type="password" class="validate" required/>
         <label for="password">Senha</label>
       </div>
     </div>
@@ -18,6 +18,16 @@
         <button class="btn waves-effect waves-light" type="submit" name="action" (click)="fazerLogin()">Acessar conta
           <i class="material-icons right">send</i>
         </button>
+      </div>
+    </div>
+  </div>
+  <div class="content" style="margin-top: 30px;">
+    <div class=" row">
+      <div class="col s3">
+        <label>Checagem</label>
+      </div>
+      <div class="col s9">
+        <h5>{{ checagem }}</h5>
       </div>
     </div>
   </div>

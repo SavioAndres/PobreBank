@@ -12,9 +12,11 @@ export class TransferirComponent implements OnInit {
 
   transacao = {} as Transacao;
   saldo: number;
+  resposta: string;
 
   constructor(private transacaoService: TransacaoService) {
     this.getSaldo();
+    this.resposta = '---------------------';
   }
 
   ngOnInit(): void {
@@ -28,6 +30,8 @@ export class TransferirComponent implements OnInit {
 
   transferir(form: NgForm) {
     this.transacaoService.transferencia(this.transacao).subscribe(() => {
+      this.resposta = 'Transfência de R$' + this.transacao.valor + ' para CPF: ' + this.transacao.cpf + ' realizado com sucesso.';
+      this.getSaldo();
       this.cleanForm(form);
     });
   }

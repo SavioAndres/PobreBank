@@ -28,4 +28,5 @@ $router->group(['middleware' => 'auth', 'prefix' => 'api/'], function () use ($r
     $router->put('saque', 'UsersController@saque');
     $router->put('deposito', 'UsersController@deposito');
     $router->put('transferencia', 'UsersController@transferencia');
+    $router->post('deleteuser', 'UsersController@deleteUser');
 });

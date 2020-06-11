@@ -45,17 +45,19 @@ class UsersController extends Controller
             'cpf' => 'required',
             'password' => 'required'
         ]);
-
-        $user = new User;
-
-        $user->name = $request->input('name');
-        $user->cpf = $request->input('cpf');
-        $user->password = Hash::make($request->input('password'));
-        $user->api_key = base64_encode(Str::random(40));
-        $user->balance = 0;
-
-        $user->save();
-
+        
+        try {
+            $user = new User;
+            $user->name = $request->input('name');
+            $user->cpf = $request->input('cpf');
+            $user->password = Hash::make($request->input('password'));
+            $user->api_key = base64_encode(Str::random(40));
+            $user->balance = 0;
+            $user->save();
+            return response()->json(['status' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false]);
+        }
     }
 
     public function show(Request $request)
@@ -68,6 +70,12 @@ class UsersController extends Controller
     {
         $user = User::where('id', $request->userid)->first();
         return response()->json(['cpf' => $user->cpf, 'name' => $user->name, 'balance' => $user->balance]);
+    }
+
+    public function deleteUser(Request $request)
+    {
+        $user = User::find($request->userid);
+        $user->delete();
     }
 
     public function saque(Request $request)
@@ -127,5 +135,3 @@ class UsersController extends Controller
     }
 
 }
-
-?>

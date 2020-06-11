@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Usuario } from 'src/app/models/usuario';
-import { TransacaoService } from 'src/app/services/transacao.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -10,15 +9,24 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  
   usuario = {} as Usuario;
+  checagem: string;
 
-  constructor(private authServices: AuthService, private usuarioService: UsuarioService) {}
+  constructor(private authServices: AuthService, private usuarioService: UsuarioService) {
+    this.checagem = '-----------------';
+  }
 
   ngOnInit(): void {}
 
   criarConta() {
     this.usuarioService.criarUsuario(this.usuario).subscribe((res) => {
-      this.fazerLogin();
+      if (res.status) {
+        this.checagem = 'Abrindo conta...';
+        this.fazerLogin();
+      } else {
+        this.checagem = 'Este CPF já está cadastrado.';
+      }
     });
   }
 

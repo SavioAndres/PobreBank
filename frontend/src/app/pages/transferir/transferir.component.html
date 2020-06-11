@@ -1,6 +1,12 @@
-<div class="container-super-min container">
-  <div class="pad-container-min">
-    <h5>R${{ saldo }}</h5>
+<div class="container container-super-min">
+  <div class="row">
+    <div class="col s4 pad-container-min">
+        <h5>R${{ saldo }}</h5>
+    </div>
+    <div class="col s1"></div>
+    <div class="col s7 pad-container-min">
+      <p>{{  resposta }}</p>
+    </div>
   </div>
 </div>
 <div class="container-super container">
@@ -20,7 +26,7 @@
       </div>
       <div class="row" style="margin-top: 30px;">
         <div class="col s12">
-          <button type="submit" class="btn" style="width: 100%;">Depositar</button>
+          <button type="submit" class="btn" style="width: 100%;">Transferir</button>
         </div>
       </div>
     </form>

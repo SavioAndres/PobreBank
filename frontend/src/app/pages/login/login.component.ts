@@ -10,18 +10,23 @@ import { Usuario } from 'src/app/models/usuario';
 export class LoginComponent implements OnInit {
 
   usuario = {} as Usuario;
+  checagem: string;
 
-  constructor(private authServices: AuthService) { }
+  constructor(private authServices: AuthService) {
+    this.checagem = '-----------------';
+  }
 
   ngOnInit(): void {
   }
 
   fazerLogin() {
     this.authServices.login(this.usuario).subscribe(results => {
-      this.authServices.autenticar(results);
-    },
-    err => {
-      console.log(err);
+      if (results.status) {
+        this.checagem = 'Logando...';
+        this.authServices.autenticar(results);
+      } else {
+        this.checagem = 'Login incorreto';
+      }
     });
   }
 

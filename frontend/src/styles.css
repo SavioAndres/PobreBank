@@ -19,12 +19,9 @@ body {
 }
 
 .pad-container-min {
-    max-width: 184px;
     padding: 20px;
     background-color: #ffffff;
     border: 1px solid #e1bee7;
     border-radius: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    text-align: center;
 }
